@@ -36,19 +36,30 @@
                                 <small class="text-muted">Category</small>
                             @endif
                             <br>
-                            <select name="category" class="form-control form-control-lg rounded-0 shadow-none select2" style="width: 100%;">
+                            <select name="category" id="category" class="form-control form-control-lg rounded-0 shadow-none select2" style="width: 100%;">
                                 <option value="">Select category</option>
                                 <?php
                                     use App\Models\Category;
                                     $categories = Category::all();
                                     foreach($categories as $category){
                                 ?>
-                                <option value="<?php echo $category->id; ?>"><?php echo $category->cat_name; ?></option>
+                                <option value="<?php echo $category->id; ?>" data-id="<?php echo $category->cat_name; ?>"><?php echo $category->cat_name; ?></option>
                                 <?php
                                     }
                                 ?>
                             </select>
                         </div>
+
+                        <!-- Item type -->
+                        <div class="form-group">
+                            @if($errors->has('item_type'))
+                                <small class="text-danger">{{ $errors->first('item_type') }}</small>
+                            @else
+                                <small class="text-muted">Product Type</small>
+                            @endif
+                            <input type="text" class="form-control form-control-lg rounded-0 shadow-none" id="itemType" name="item_type" readonly>
+                        </div>
+
 
                         <!-- Product name -->
                         <div class="form-group mb-4">
@@ -85,6 +96,26 @@
                             </select>
                         </div>
 
+                        <!-- Total Items -->
+                        <div class="form-group mb-4">
+                            @if($errors->has('total_items'))
+                                <small class="text-danger">{{ $errors->first('total_items') }}</small>
+                            @else
+                                <small class="text-muted">Total Items</small>
+                            @endif
+                            <input type="number" class="form-control form-control-lg rounded-0 shadow-none" value="1" name="total_items" id="total_items">
+                        </div>
+
+                        <!-- Item Details -->
+                        <div class="form-group mb-4">
+                            @if($errors->has('item_details'))
+                                <small class="text-danger">{{ $errors->first('item_details') }}</small>
+                            @else
+                                <small class="text-muted">Item Details</small>
+                            @endif
+                            <input type="text" class="form-control form-control-lg rounded-0 shadow-none" name="item_details" value="none" id="item_details">
+                        </div>
+
                         <!-- Product image -->
                         <div class="form-group mb-4">
                             @if($errors->has('product_image'))
@@ -95,9 +126,6 @@
                             <br>
                             <input type="file" name="product_image">
                         </div>
-
-
-
 
                         <button type="submit" class="btn btn-lg btn-primary rounded-0 shadow-none float-right text-white px-5">Submit</button>
                     </form>
@@ -113,6 +141,9 @@
 <script>
     $(document).ready(function() {
         $('.select2').select2();
+        $('#category').change(function(){
+            $('#itemType').val($(this).find(':selected').attr('data-id'));
+        });
     });
 </script>
 

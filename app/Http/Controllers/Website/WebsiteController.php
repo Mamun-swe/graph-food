@@ -56,15 +56,16 @@ class WebsiteController extends Controller
 
     // Bangla food
     public function banglaItems(){
-        $breakFastData = BanglaFood::where('category', '=', 'breakfast')->where('product_status', '=', 1)->orderBy('id', 'DESC')->get();
-        $launceData = BanglaFood::where('category', '=', 'launce')->where('product_status', '=', 1)->orderBy('id', 'DESC')->get();
-        $dinnerData = BanglaFood::where('category', '=', 'dinner')->where('product_status', '=', 1)->orderBy('id', 'DESC')->get();
+        $breakFastData = Product::where('item_type', '=', 'break-fast')->where('product_status', '=', 1)->orderBy('id', 'DESC')->get();
+        $launceData = Product::where('item_type', '=', 'lunch')->where('product_status', '=', 1)->orderBy('id', 'DESC')->get();
+        $dinnerData = Product::where('item_type', '=', 'dinner')->where('product_status', '=', 1)->orderBy('id', 'DESC')->get();
         return view('website.bangla-food', compact('breakFastData', 'launceData', 'dinnerData'));
     }
 
     // Offer
     public function FlashOffer(){
-        return view('website.offer');
+        $offerData = Product::where('item_type', '=', 'offer')->where('product_status', '=', 1)->orderBy('id', 'DESC')->get();
+        return view('website.offer', compact('offerData'));
     }
 
     public function denied(){

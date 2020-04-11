@@ -94,7 +94,12 @@
     <?php 
       use App\Models\Category;
       use App\Models\Product;
-      $categories = Category::all();
+      $categories = Category::where('cat_name', '!=', 'Bangla')
+                            ->where('cat_name', '!=', 'offer')
+                            ->where('cat_name', '!=', 'break-fast')
+                            ->where('cat_name', '!=', 'lunch')
+                            ->where('cat_name', '!=', 'dinner')
+                            ->get();
         foreach($categories as $category){
     ?>
     

@@ -39,7 +39,7 @@
                                 <small class="text-capitalize">{{$breakFast->item_details}}</small><br>
                                 <div class="mt-3">
                                     <small class="text-muted">Price: {{$breakFast->product_price}}tk</small><br>
-                                    <button type="button" class="btn btn-sm btn-light shadow-none px-3 add-to-cart mt-2">Add to cart</button>
+                                    <button type="button" class="btn btn-sm btn-light shadow-none px-3 add-to-cart mt-2" onclick="addToCart({{$breakFast->id}})">Add to cart</button>
                                 </div>
                             </div>
                         </div>
@@ -79,7 +79,7 @@
                                 <small class="text-capitalize">{{$launce->item_details}}</small><br>
                                 <div class="mt-3">
                                     <small class="text-muted">Price: {{$launce->product_price}}tk</small><br>
-                                    <button type="button" class="btn btn-sm btn-light shadow-none px-3 add-to-cart mt-2">Add to cart</button>
+                                    <button type="button" class="btn btn-sm btn-light shadow-none px-3 add-to-cart mt-2" onclick="addToCart({{$launce->id}})">Add to cart</button>
                                 </div>
                             </div>
                         </div>
@@ -120,7 +120,7 @@
                                 <small class="text-capitalize">{{$dinner->item_details}}</small><br>
                                 <div class="mt-3">
                                     <small class="text-muted">Price: {{$dinner->product_price}}tk</small><br>
-                                    <button type="button" class="btn btn-sm btn-light shadow-none px-3 add-to-cart mt-2">Add to cart</button>
+                                    <button type="button" class="btn btn-sm btn-light shadow-none px-3 add-to-cart mt-2" onclick="addToCart({{$dinner->id}})">Add to cart</button>
                                 </div>
                             </div>
                         </div>
@@ -136,5 +136,62 @@
 
     </div>
 </div>
+<?php
+    $user = "";
+    if(Auth::User() && Auth::User()->admin == 0){
+      $user = Auth::User()->id;
+    }else{
+      $user = "null";
+    }
+  ?>
 
+<script>
+  function addToCart(product_id){
+    var user = <?php echo $user; ?>;
+    if(user == null){
+      notif({
+        type: "error",
+        msg: "<b>You have to need login your account.</b>",
+        position: "center",
+      });
+    }else{
+      var data = {
+        product_id: product_id,
+        user_id: user
+      }
+
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': '{{csrf_token()}}'
+            },
+            type: "POST",
+            url: "{{route('account.cart.store')}}",
+            data: data,
+            success:function(response){
+              if(response == 'success'){
+                notif({
+                  type: "success",
+                  msg: "<b>One item added into cart.</b>",
+                  position: "right",
+                });
+              }
+
+              if(response == 'exist'){
+                notif({
+                  type: "error",
+                  msg: "<b>This item already added to you cart.</b>",
+                  position: "right",
+                });
+              }
+            },
+            error: function (error) {
+                if(error){
+                  console.log(error);
+                }
+            }
+        })
+    }
+    
+  }
+</script>
 @endsection

@@ -27,6 +27,8 @@
                         <td><p class="mb-0 text-dark"><b>Category</b></p></td>
                         <td><p class="mb-0 text-dark"><b>Product name</b></p></td>
                         <td class="text-center"><p class="mb-0 text-dark"><b>Image</b></p></td>
+                        <td class="text-center"><p class="mb-0 text-dark"><b>Total Items</b></p></td>
+                        <td class="text-center"><p class="mb-0 text-dark"><b>Items Detail</b></p></td>
                         <td class="text-center"><p class="mb-0 text-dark"><b>Price</b></p></td>
                         <td class="text-center"><p class="mb-0 text-dark"><b>Type</b></p></td>
                         <td class="text-center"><p class="mb-0 text-dark"><b>Status</b></p></td>
@@ -42,6 +44,12 @@
                         <td><p class="mb-0 text-dark text-capitalize">{{$product->product_name}}</p></td>
                         <td class="text-center">
                             <img src="{{url('')}}/products/{{$product->product_image}}" class="img-fluid product-img">
+                        </td>
+                        <td class="text-center">
+                            <p class="mb-0 text-capitalize">{{$product->total_items}}</p>
+                        </td>
+                        <td class="text-center">
+                            <p class="mb-0 text-capitalize">{{$product->item_details}}</p>
                         </td>
                         <td><p class="mb-0 text-dark text-center text-capitalize">{{$product->product_price}} tk</p></td>
                         <td>

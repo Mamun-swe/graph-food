@@ -32,7 +32,7 @@
 
                     @foreach($data as $key => $cat)
                     <tr>
-                        <td><p class="mb-0 text-dark"><b>{{$cat->id}}</b></p></td>
+                        <td><p class="mb-0 text-dark"><b>{{$key + 1}}</b></p></td>
                         <td><p class="mb-0 text-dark text-capitalize">{{$cat->cat_name}}</p></td>
                         <td class="text-center">
                             <a href="{{route('admin.category.edit', $cat->id)}}" class="btn btn-light text-info"><i class="fas fa-pen"></i></a>

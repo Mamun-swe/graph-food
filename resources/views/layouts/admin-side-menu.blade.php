@@ -67,13 +67,6 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{route('admin.bangla.index')}}" class="nav-link">
-                        <i class="nav-icon fas fa-copy"></i>
-                        <p>Bangla Food</span></p>
-                    </a>
-                </li>
-
-                <li class="nav-item">
                     <a href="{{route('admin.orders')}}" class="nav-link">
                         <i class="nav-icon fas fa-copy"></i>
                         <p>Orders</span></p>

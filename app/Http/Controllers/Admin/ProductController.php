@@ -40,9 +40,12 @@ class ProductController extends Controller
     {
         $request->validate([
             'category' => 'required',
+            'item_type' => 'required',
             'product_name' => 'required',
             'product_price' => 'required',
             'product_type' => 'required',
+            'total_items' => 'required',
+            'item_details' => 'required',
             'product_image' => 'required',
         ]);
 
@@ -50,19 +53,23 @@ class ProductController extends Controller
             $extension = $file->getClientOriginalExtension();
             $filename = time() . '.' . $extension;
             $file->move('products', $filename);
-
-
+        
+        
         $form_data = array(
             'category_id'=> $request->category,
+            'item_type' => $request->item_type,
             'product_name'=> $request->product_name,
             'product_price'=> $request->product_price,
             'product_type'=> $request->product_type,
+            'total_items'=> $request->total_items,
+            'item_details'=> $request->item_details,
             'product_status'=> 1,
             'product_image'=> $filename,
         );
 
         Product::create($form_data);
         return redirect()->back()->with('success', 'Successfully product created .');
+        
     }
 
     /**
