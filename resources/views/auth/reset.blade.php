@@ -18,7 +18,7 @@
                     @elseif(Session::has('errorx'))
                         <p class="text-danger mb-0">{{Session::get('errorx')}}</p>
                     @endif
-                <form action="{{route('password.change.reset')}}" method="post">
+                <form action="{{route('reset')}}" method="post">
                     @csrf
                     <div class="form-group">
                         @if($errors->has('email'))

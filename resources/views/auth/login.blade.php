@@ -23,7 +23,7 @@
                                 </span>
                             @enderror
                             <label for="email">{{ __('E-Mail Address') }}</label>
-                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email" autofocus>
                         </div>
 
                         <div class="form-group">
@@ -33,7 +33,7 @@
                                 </span>
                             @enderror
                             <label for="password">{{ __('Password') }}</label>
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="current-password">
                         </div>
 
                         <div class="form-group row">
@@ -52,7 +52,7 @@
                             <button type="submit" class="btn btn-block">{{ __('Login') }}</button>
                         </div>
                         <div class="text-right">
-                            <a href="{{ route('password.change') }}">{{ __('Forgot Your Password?') }}</a>
+                            <a href="{{ route('reset') }}">{{ __('Forgot Your Password?') }}</a>
                             <br>
                             <a href="{{ route('register') }}">Have no account ?</a>
                         </div>

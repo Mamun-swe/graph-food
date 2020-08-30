@@ -14,48 +14,63 @@
 
                 <div class="card-body shadow-sm pb-5">
                     <h4 class="mb-4"><b>Registration</b></h4>
+                    @if(Session::has('success'))
+                    <p class="text-success">{{Session::get('success')}}</p>
+                    @endif
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
-                        <div class="form-group">
-                            @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                            <label for="name">{{ __('Name') }}</label>
-                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-                        </div>
+
 
                         <div class="form-group">
-                            @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                            @if($errors->has('name'))
+                                <label class="text-danger" for="name">{{ __('Name is required') }}</label>
+                            @else 
+                                <label for="name">{{ __('Name') }}</label>
+                            @endif
+                            
+                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" autocomplete="name" autofocus>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            @if($errors->has('email'))
+                                <label class="text-danger" for="email">{{ $errors->first('email') }}</label>
+                            @else 
                             <label for="email">{{ __('E-Mail Address') }}</label>
-                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                            @endif
+                            
+                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email">
                         </div>
+
+
 
 
                         <div class="form-group">
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                            @if($errors->has('password'))
+                            <label class="text-danger" for="password">{{ $errors->first('password') }}</label>
+                            @else 
                             <label for="password">{{ __('Password') }}</label>
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                            @endif
+                            
+                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="new-password">
                         </div>
+
+
 
                         <div class="form-group">
                             <label for="password-confirm">{{ __('Confirm Password') }}</label>
-                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password">
                         </div>
+
+
 
                         <div class="form-group">
                             <button type="submit" class="btn btn-block">{{ __('Register') }}</button>
                         </div>
+
+
                         <div class="text-right">
                             <a href="{{ route('login') }}">Go to login</a>
                         </div>

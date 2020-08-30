@@ -11,8 +11,25 @@
 |
 */
 
+// Auth Routes
+
+Route::get('login', 'AuthController@loginView')->name('login');
+Route::post('login', 'AuthController@login')->name('login');
+
+Route::get('register', 'AuthController@registerView')->name('register');
+Route::post('register', 'AuthController@registration')->name('register');
+
+Route::get('reset', 'AuthController@resetView')->name('reset');
+Route::post('reset', 'AuthController@resetPass')->name('reset');
+
+Route::post('logout', 'AuthController@logout')->name('logout');
+
+Route::get('change-password', 'Website\PasswordResetController@index')->name('password.change');
+Route::post('change-password-reset', 'Website\PasswordResetController@resetPass')->name('password.change.reset');
+Route::post('sendmessage','Website\MailController@sendMessage')->name('sendmessage');
+
 // Admin Panel Routes
-Route::get('/home', 'HomeController@index')->name('home')->middleware('auth', 'adminPermission');
+Route::get('/home', 'HomeController@index')->name('dashboard')->middleware('auth', 'adminPermission');
 Route::group(['prefix'=>'admin','as'=>'admin.', 'middleware' => ['auth', 'adminPermission']], function(){
     Route::resource('category', 'Admin\CategoryController');
     Route::post('product/{id}/status', 'Admin\ProductController@status')->name('product.status');
@@ -45,11 +62,6 @@ Route::group(['prefix'=>'account','as'=>'account.', 'middleware' => ['auth', 'us
     Route::get('history', 'Website\AccountController@history')->name('history');
 });
 
-// Auth Routes
-Route::get('change-password', 'Website\PasswordResetController@index')->name('password.change');
-Route::post('change-password-reset', 'Website\PasswordResetController@resetPass')->name('password.change.reset');
-Route::post('sendmessage','Website\MailController@sendMessage')->name('sendmessage');
-
 // Website Routes
 Route::get('/', 'Website\WebsiteController@home')->name('home');
 Route::get('/category/{id}', 'Website\WebsiteController@category')->name('category');
@@ -62,6 +74,6 @@ Route::get('/offer', 'Website\WebsiteController@FlashOffer')->name('offer');
 // Page not found
 Route::get('/denied', 'Website\WebsiteController@denied')->name('denied');
 
-Auth::routes(['reset' => false]);
+// Auth::routes(['reset' => false, 'login' => false]);
 
 
