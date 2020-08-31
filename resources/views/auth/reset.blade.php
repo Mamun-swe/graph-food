@@ -12,7 +12,7 @@
             </div>
 
             <div class="card-body shadow-sm pb-5">
-                <h4 class="mb-4"><b>Reset Password xx</b></h4>
+                <h4 class="mb-4"><b>Reset Password</b></h4>
                     @if(Session::has('success'))
                         <p class="text-success mb-0">{{Session::get('success')}}</p>
                     @elseif(Session::has('errorx'))
