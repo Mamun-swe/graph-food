@@ -223,8 +223,9 @@
       </h2>
       <div class="row">
         <div class="col-md-8 mr-auto">
-          <form action="{{route('sendmessage')}}" method="post">
-            @csrf
+          <!-- <form action="{{route('sendmessage')}}" method="post"> -->
+          <form>
+            <!-- @csrf -->
             <div class="contact_form-container">
               <div>
                 <div class="mb-3">

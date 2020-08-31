@@ -92,27 +92,23 @@ class AuthController extends Controller
     
     // Reset
     public function resetPass(Request $request){
-        dd($request);
-        // $rules = [
-        //     'phone' => 'required|regex:/(01)[0-9]{9}/',
-        //     'password' => 'required|string|min:8',
-        // ];
-        // $this->validate($request,$rules);
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required|string|min:8',
+        ]);
+        $form_data = array(
+            'email'=> $request->email,
+            'password'=> Hash::make($request->password),
+        );
 
-        // $form_data = array(
-        //     'password' => Hash::make($request['password']),
-        // );
-        
-
-        // $user = User::where('phone', '=', $request->phone)
-        //         ->where('account_type', '!=', 'admin')
-        //         ->first();
-        // if($user){
-        //     User::where('phone', '=', $request->phone)->where('account_type', '!=', 'admin')->update($form_data);
-        //     return redirect()->back()->with('success', 'পাসওয়ার্ড পরিবর্তন হয়েছে ।');
-        // }else{
-        //     return redirect()->back()->with('error', 'মোবাইল নাম্বার সঠিক নয় ।');
-        // }
+        $data = User::where('email', $request->email)->get();
+        if(count($data) > 0){
+            $record = User::where('email', $request->email);
+            $record->update($form_data);
+            return redirect()->back()->with('success', 'Password successfully reset.');
+        }else{
+            return redirect()->back()->with('errorx', 'Account not found, Try with correct e-mail.');
+        }
     }
 
     // Logout

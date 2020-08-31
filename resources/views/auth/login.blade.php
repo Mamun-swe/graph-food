@@ -13,6 +13,9 @@
 
                 <div class="card-body shadow-sm pb-5">
                     <h4 class="mb-4"><b>Login</b></h4>
+                    @if(Session::has('error'))
+                    <p class="text-danger">{{Session::get('error')}}</p>
+                    @endif
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
